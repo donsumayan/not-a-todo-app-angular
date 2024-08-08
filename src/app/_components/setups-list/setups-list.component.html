@@ -20,7 +20,6 @@
             <div>Name</div>
             <div>Alias</div>
           </div>
-          <!-- <mat-divider /> -->
           @for (fund of setup.funds; track $index) {
           <div class="mini-table-row">
             <div>{{ fund.name }}</div>
@@ -38,15 +37,28 @@
         </mat-chip-set>
       </div>
 
+      <div>Sources:</div>
+      <div>
+        <div class="mini-table">
+          <div class="mini-table-row header">
+            <div>Name</div>
+          </div>
+          @for (source of setup.sources; track source.id) {
+          <div class="mini-table-row">
+            <div style="grid-column: span 2">{{ source.name }}</div>
+          </div>
+          }
+        </div>
+      </div>
       <div>Runs:</div>
       <div>
         <div class="mini-table">
           <div class="mini-table-row header">
             <div>Name</div>
           </div>
-          @for (runs of setup.runs; track $index) {
+          @for (run of setup.runs; track run.id) {
           <div class="mini-table-row">
-            <div>{{ runs.name }}</div>
+            <div style="grid-column: span 2">{{ run.name }}</div>
           </div>
           }
         </div>
@@ -58,7 +70,7 @@
             <div>Type</div>
             <div>Name</div>
           </div>
-          @for (report of setup.reports; track $index) {
+          @for (report of setup.reports; track report.id) {
           <div class="mini-table-row">
             <div>{{ report.type.name }}</div>
             <div>{{ report.name }}</div>

@@ -6,11 +6,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { SearchBarComponent } from './search-bar/search-bar.component';
-import { SetupsListComponent } from './setups-list/setups-list.component';
-import { SetupService } from './setup.service';
+import { SearchBarComponent } from './_components/search-bar/search-bar.component';
+import { SetupService } from './_services/setup.service';
 import { map } from 'rxjs';
 import { MatDividerModule } from '@angular/material/divider';
+import { SetupsListComponent } from './_components/setups-list/setups-list.component';
 
 @Component({
   selector: 'app-root',

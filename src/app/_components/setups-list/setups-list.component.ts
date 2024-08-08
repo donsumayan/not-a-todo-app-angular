@@ -1,12 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { SetupService } from '../setup.service';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
+import { SetupService } from '../../_services/setup.service';
 
 @Component({
   selector: 'app-setups-list',
