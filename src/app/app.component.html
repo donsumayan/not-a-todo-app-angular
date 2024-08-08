@@ -1,0 +1,12 @@
+<main>
+  <mat-toolbar class="toolbar">
+    <a mat-button href="/"> <mat-icon>home</mat-icon> Home </a>
+    <div class="spacer"></div>
+    <a mat-button href="/create-setup"> <mat-icon>add</mat-icon> New Setup </a>
+    <app-search-bar (onSearch)="onSearch($event)" />
+  </mat-toolbar>
+
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</main>

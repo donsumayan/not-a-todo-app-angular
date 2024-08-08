@@ -1,0 +1,83 @@
+<mat-accordion>
+  @for (setup of setupService.data$ | async ; track $index) {
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ setup.name }}</mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="grid">
+      <div>Name:</div>
+      <div>{{ setup.name }}</div>
+      <div>Description:</div>
+      <div>{{ setup.description }}</div>
+      <div>Planner Type:</div>
+      <div>{{ setup.plannerType }}</div>
+      <div>External System Config:</div>
+      <div>{{ setup.externalSystemConfig }}</div>
+      <div>Funds:</div>
+      <div>
+        <div class="mini-table">
+          <div class="mini-table-row header">
+            <div>Name</div>
+            <div>Alias</div>
+          </div>
+          <!-- <mat-divider /> -->
+          @for (fund of setup.funds; track $index) {
+          <div class="mini-table-row">
+            <div>{{ fund.name }}</div>
+            <div>{{ fund.alias }}</div>
+          </div>
+          }
+        </div>
+      </div>
+      <div>Trigger:</div>
+      <div>
+        <mat-chip-set aria-label="triggers">
+          @for (trigger of setup.triggers; track $index) {
+          <mat-chip>{{ trigger }}</mat-chip>
+          }
+        </mat-chip-set>
+      </div>
+
+      <div>Runs:</div>
+      <div>
+        <div class="mini-table">
+          <div class="mini-table-row header">
+            <div>Name</div>
+          </div>
+          @for (runs of setup.runs; track $index) {
+          <div class="mini-table-row">
+            <div>{{ runs.name }}</div>
+          </div>
+          }
+        </div>
+      </div>
+      <div>Reports:</div>
+      <div>
+        <div class="mini-table">
+          <div class="mini-table-row header">
+            <div>Type</div>
+            <div>Name</div>
+          </div>
+          @for (report of setup.reports; track $index) {
+          <div class="mini-table-row">
+            <div>{{ report.type.name }}</div>
+            <div>{{ report.name }}</div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+
+  }
+</mat-accordion>
+
+<mat-paginator
+  class="paginator"
+  [length]="setupService.count$ | async"
+  [pageSize]="setupService.pageSize$ | async"
+  (page)="updatePageSize($event)"
+  [pageSizeOptions]="[5, 10, 25, 100]"
+  aria-label="Select page"
+>
+</mat-paginator>

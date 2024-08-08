@@ -1,0 +1,13 @@
+main{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.spacer {
+    flex: 1,
+}
+.content{
+    width: 80vw;
+}
