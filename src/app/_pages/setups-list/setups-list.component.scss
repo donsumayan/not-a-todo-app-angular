@@ -1,0 +1,82 @@
+:host{
+    display: block;
+    margin-top: 1em;
+}
+
+.paginator{
+    background-color: white;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    row-gap: 1em;
+}
+
+.mini-table {
+    border: 1px solid #c7c7c7;
+    border-radius: 16px;
+    padding: 1em;
+    .mini-table-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-bottom: 0.5px solid #c7c7c7;
+        &.header{
+            color:grey;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+    }
+
+}
+
+.spacer {
+    display: flex;
+    flex: 1;
+}
+
+.accordion {
+    display: block;
+    max-width: 500px;
+  }
+  
+  .accordion-item {
+    display: block;
+    border: solid 1px #ccc;
+  }
+  
+  .accordion-item + .accordion-item {
+    border-top: none;
+  }
+  
+  .accordion-item-header {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+  }
+  
+  .accordion-item-description {
+    font-size: 0.85em;
+    color: #999;
+  }
+  
+  .accordion-item-header,
+  .accordion-item-body {
+    padding: 16px;
+  }
+  
+  .accordion-item-header:hover {
+    cursor: pointer;
+    background-color: #eee;
+  }
+  
+  .accordion-item:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+  
+  .accordion-item:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+  

@@ -1,10 +1,33 @@
 <mat-accordion>
-  @for (setup of setupService.data$ | async ; track $index) {
-  <mat-expansion-panel hideToggle>
+  @for (setup of setupService.data$ | async ; track setup.id) {
+  <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>{{ setup.name }}</mat-panel-title>
+      <mat-panel-title>
+        {{ setup.name }}
+
+        <span class="spacer"></span>
+        <!-- COPY BUTTON -->
+        <button
+          mat-icon-button
+          aria-label="Example icon button with a vertical three dot icon"
+          (click)="copySetup($event, setup)"
+        >
+          <mat-icon>content_copy</mat-icon>
+        </button>
+
+        <!-- DELETE BUTTON -->
+        <button
+          mat-icon-button
+          aria-label="Example icon button with a vertical three dot icon"
+          (click)="onDelete($event, setup)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="grid">
+      <div>ID:</div>
+      <div>{{ setup.id }}</div>
       <div>Name:</div>
       <div>{{ setup.name }}</div>
       <div>Description:</div>
@@ -68,7 +91,7 @@
         <div class="mini-table">
           <div class="mini-table-row header">
             <div>Type</div>
-            <div>Name</div>
+            <div>Report</div>
           </div>
           @for (report of setup.reports; track report.id) {
           <div class="mini-table-row">

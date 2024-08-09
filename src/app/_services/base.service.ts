@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { stringify } from 'qs';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Setup, SetupQueryOptions, SetupResponse } from './types';
+import { PageOptions, Response } from './types';
 
-export class BaseService {
+export class BaseService<Entity, QueryOption extends PageOptions> {
   public url = 'http://localhost:3000/';
   private httpClient: HttpClient;
 
@@ -14,14 +14,14 @@ export class BaseService {
 
   private _page = new BehaviorSubject(0);
   private _pageSize = new BehaviorSubject(10);
-  private _data = new BehaviorSubject<Setup[]>([]);
+  private _data = new BehaviorSubject<Entity[]>([]);
   private _count = new BehaviorSubject(0);
 
-  get data$(): Observable<Setup[]> {
+  get data$(): Observable<Entity[]> {
     return this._data.asObservable();
   }
 
-  set data$(value: Setup[]) {
+  set data$(value: Entity[]) {
     this._data.next(value);
   }
 
@@ -49,7 +49,7 @@ export class BaseService {
     this._pageSize.next(value);
   }
 
-  private query<T>(options?: SetupQueryOptions) {
+  query<T>(options?: Partial<QueryOption>) {
     let url = this.url;
     if (options) {
       const obj = options as object;
@@ -60,8 +60,8 @@ export class BaseService {
     return this.httpClient.get<T>(url);
   }
 
-  loadData(options?: SetupQueryOptions) {
-    return this.query<SetupResponse>(options).subscribe(
+  loadData(options?: Partial<QueryOption>) {
+    return this.query<Response<Entity>>(options).subscribe(
       ({ data, count, page, pageSize }) => {
         this.data$ = data;
         this.count$ = count;
@@ -71,7 +71,28 @@ export class BaseService {
     );
   }
 
-  create(setup: Partial<Setup>) {
-    return this.httpClient.post(this.url, setup);
+  loadNextBatch() {
+    return this.loadData({
+      page: this._page.value + 1,
+      count: this._count.value,
+      pageSize: this._pageSize.value,
+    } as QueryOption);
+  }
+
+  refreshBatch() {
+    return this.loadData({
+      page: this._page.value,
+      count: this._count.value,
+      pageSize: this._pageSize.value,
+    } as QueryOption);
+  }
+
+  create(obj: Partial<Entity>) {
+    return this.httpClient.post(this.url, obj);
+  }
+
+  delete(obj: { id: number }) {
+    console.log(this.url + obj.id);
+    return this.httpClient.delete(this.url + obj.id);
   }
 }

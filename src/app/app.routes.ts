@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { CreateSetupComponent } from './create-setup/create-setup.component';
-import { SetupsListComponent } from './_components/setups-list/setups-list.component';
+import { CreateSetupComponent } from './_pages/create-setup/create-setup.component';
+import { SetupsListComponent } from './_pages/setups-list/setups-list.component';
 
 export const routes: Routes = [
   {

@@ -1,9 +1,6 @@
-export type SetupQueryOptions = Partial<
-  { name: string } & Omit<SetupResponse, 'data'>
->;
+export type Response<T = any> = { data: T[] } & PageOptions;
 
-export interface SetupResponse {
-  data: Setup[];
+export interface PageOptions {
   page: number;
   pageSize: number;
   count: number;
@@ -41,8 +38,11 @@ export enum PlannerType {
 export interface Report {
   id: number;
   name: string;
-  type: Run;
+  type: ReportType;
 }
+
+export type ReportType = Run;
+export type Source = Run;
 
 export interface Run {
   id: number;

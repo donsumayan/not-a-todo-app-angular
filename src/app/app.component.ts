@@ -10,7 +10,7 @@ import { SearchBarComponent } from './_components/search-bar/search-bar.componen
 import { SetupService } from './_services/setup.service';
 import { map } from 'rxjs';
 import { MatDividerModule } from '@angular/material/divider';
-import { SetupsListComponent } from './_components/setups-list/setups-list.component';
+import { SetupsListComponent } from './_pages/setups-list/setups-list.component';
 
 @Component({
   selector: 'app-root',

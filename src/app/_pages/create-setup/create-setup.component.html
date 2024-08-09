@@ -1,9 +1,9 @@
-<mat-card>
+<mat-card appearance="outlined">
   <mat-card-content>
     <form [formGroup]="formGroup">
       <div class="grid">
         <!-- NAME -->
-        <div>Name</div>
+        <div>Name *</div>
         <mat-form-field appearance="outline" class="field">
           <input
             matInput
@@ -67,30 +67,44 @@
         <!-- FUNDS -->
         <div>Funds</div>
         <div formArrayName="funds">
-          @if(funds.length > 0) {
+          @if(funds.length) {
           <div class="mini-table">
-            <div class="mini-table-row header">
-              <div>Name</div>
-              <div>Alias</div>
+            <div class="mini-table-row-flex">
+              <div class="row-field header">Name</div>
+              <div class="row-field header">Alias</div>
+              <div style="width: 30px"></div>
             </div>
-            <div
-              *ngFor="let control of funds.controls; let i = index"
-              class="mini-table-row"
-            >
-              <ng-container [formGroupName]="i">
-                <input placeholder="Select Name" formControlName="name" />
-                <input placeholder="No Alias" formControlName="alias" />
+            <ng-container *ngFor="let x of funds.controls; let i = index">
+              <div class="mini-table-row-flex">
+                <mat-form-field appearance="outline" class="row-field">
+                  <mat-select [formControlName]="i" placeholder="Pick Fund">
+                    @for (option of fundService.data$|async; track option) {
+                    <mat-option [value]="option">
+                      {{ option.name }}
+                    </mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="row-field">
+                  <input
+                    matInput
+                    [disabled]="true"
+                    [value]="x.value.alias ?? '--'"
+                  />
+                </mat-form-field>
                 <button
+                  class="delete"
                   mat-icon-button
                   aria-label="delete"
                   (click)="funds.removeAt(i)"
                 >
                   <mat-icon>delete</mat-icon>
                 </button>
-              </ng-container>
-            </div>
+              </div>
+            </ng-container>
           </div>
           }
+
           <button mat-button (click)="addFund()">
             <mat-icon>add</mat-icon>
             Add Fund
@@ -100,21 +114,26 @@
         <!-- SOURCES -->
         <div>Sources</div>
         <div formArrayName="sources">
-          @if(sources.length >0 ) {
+          @if(sources.length) {
           <div class="mini-table">
-            <div class="mini-table-row header">
-              <div>Name</div>
+            <div class="mini-table-row-flex">
+              <div class="row-field header">Name</div>
+              <div class="row-field header">Alias</div>
+              <div style="width: 30px"></div>
             </div>
-            <ng-container
-              *ngFor="let control of sources.controls; let i = index"
-            >
-              <div class="mini-table-row">
-                <input
-                  class="span"
-                  placeholder="Enter Source Name"
-                  [formControlName]="i"
-                />
+            <ng-container *ngFor="let x of sources.controls; let i = index">
+              <div class="mini-table-row-flex">
+                <mat-form-field appearance="outline" class="row-field">
+                  <mat-select [formControlName]="i" placeholder="Pick Source">
+                    @for (option of sourceService.data$|async; track option) {
+                    <mat-option [value]="option">
+                      {{ option.name }}
+                    </mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
                 <button
+                  class="delete"
                   mat-icon-button
                   aria-label="delete"
                   (click)="sources.removeAt(i)"
@@ -125,31 +144,39 @@
             </ng-container>
           </div>
           }
-          <button mat-button (click)="addSources()">
+
+          <button mat-button (click)="addSource()">
             <mat-icon>add</mat-icon>
-            Add Sources
+            Add Source
           </button>
         </div>
 
         <!-- RUNS -->
-        <div>Runs:</div>
+        <div>Runs</div>
         <div formArrayName="runs">
-          @if(runs.length > 0) {
+          @if(runs.length) {
           <div class="mini-table">
-            <div class="mini-table-row header">
-              <div>Name</div>
+            <div class="mini-table-row-flex">
+              <div class="row-field header">Name</div>
+              <div class="row-field header">Alias</div>
+              <div style="width: 30px"></div>
             </div>
-            <ng-container *ngFor="let control of runs.controls; let i = index">
-              <div class="mini-table-row">
-                <input
-                  placeholder="Enter Run Name"
-                  class="span"
-                  [formControlName]="i"
-                />
+            <ng-container *ngFor="let x of runs.controls; let i = index">
+              <div class="mini-table-row-flex">
+                <mat-form-field appearance="outline" class="row-field">
+                  <mat-select [formControlName]="i" placeholder="Pick Run">
+                    @for (option of runService.data$|async; track option) {
+                    <mat-option [value]="option">
+                      {{ option.name }}
+                    </mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
                 <button
+                  class="delete"
                   mat-icon-button
                   aria-label="delete"
-                  (click)="sources.removeAt(i)"
+                  (click)="runs.removeAt(i)"
                 >
                   <mat-icon>delete</mat-icon>
                 </button>
@@ -157,6 +184,7 @@
             </ng-container>
           </div>
           }
+
           <button mat-button (click)="addRun()">
             <mat-icon>add</mat-icon>
             Add Run
@@ -164,39 +192,43 @@
         </div>
 
         <!-- REPORTS -->
-        <div>Reports:</div>
+        <div>Reports</div>
+
         <div formArrayName="reports">
           @if(reports.length) {
           <div class="mini-table">
-            <div class="mini-table-row header">
-              <div>Type</div>
-              <div>Name</div>
+            <div class="mini-table-row-flex">
+              <div class="row-field header">Report</div>
+              <div class="row-field header">Type</div>
+              <div style="width: 30px"></div>
             </div>
             <ng-container *ngFor="let x of reports.controls; let i = index">
-              <div class="mini-table-row-flex" [formGroupName]="i">
+              <div class="mini-table-row-flex">
                 <mat-form-field appearance="outline" class="row-field">
-                  <mat-select formControlName="type">
-                    @for (food of []; track food) {
-                    <mat-option>z</mat-option>
+                  <mat-select [formControlName]="i" placeholder="Pick Report">
+                    @for (option of reportService.data$|async; track option.id)
+                    {
+                    <mat-option [value]="option">
+                      {{ option.name }}
+                    </mat-option>
                     }
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="row-field">
-                  <mat-select formControlName="name">
-                    @for (food of []; track food) {
-                    <mat-option> aaa</mat-option>
-                    }
-                  </mat-select>
+                  <input
+                    matInput
+                    [disabled]="true"
+                    [value]="x.value?.type?.name"
+                  />
                 </mat-form-field>
-                <div>
-                  <button
-                    mat-icon-button
-                    aria-label="delete"
-                    (click)="reports.removeAt(i)"
-                  >
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                </div>
+                <button
+                  class="delete"
+                  mat-icon-button
+                  aria-label="delete"
+                  (click)="reports.removeAt(i)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
               </div>
             </ng-container>
           </div>
@@ -211,11 +243,19 @@
     </form>
 
     <!-- FOOTER -->
-    <mat-card-footer class="footer-actions">
-      <button mat-button (click)="createSetup()">
-        <mat-icon>save</mat-icon>
-        Create Setup
-      </button>
+    <mat-card-footer>
+      <div class="flex">
+        <button
+          mat-fab
+          extended
+          [disabled]="formGroup.invalid"
+          class="submit-button"
+          (click)="createSetup()"
+        >
+          <mat-icon>save</mat-icon>
+          Create Setup
+        </button>
+      </div>
     </mat-card-footer>
   </mat-card-content>
 </mat-card>

@@ -26,12 +26,7 @@
         grid-template-columns: 3fr 3fr 1fr;
         border-bottom: 0.5px solid #c7c7c7;
          
-        &.header{
-            color:grey;
-            font-size: 0.8em;
-            font-weight: bold;
-            padding-bottom: 0.5em;
-        }
+        
         input{
             font-size: 0.9em;
             padding: 0.5em;
@@ -64,8 +59,17 @@
     }
 }
 
-.footer-action{
-    display: flex;
-    align-items: right;
-    justify-content: left;
+.header{
+    color:grey;
+    font-size: 0.8em;
+    font-weight: bold;
+    padding-bottom: 0.5em;
+}
+
+.flex{
+    display: flex; 
+    justify-content: flex-end;
+} 
+.delete{
+    margin-top: 1em;
 }
