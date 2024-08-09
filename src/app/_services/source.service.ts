@@ -10,6 +10,6 @@ type QueryOptions = {} & PageOptions;
 })
 export class SourceService extends BaseService<Source, QueryOptions> {
   constructor(http: HttpClient) {
-    super(http, 'http://localhost:3000/source');
+    super(http, 'http://localhost:3000/source/');
   }
 }

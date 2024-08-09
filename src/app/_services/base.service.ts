@@ -92,7 +92,6 @@ export class BaseService<Entity, QueryOption extends PageOptions> {
   }
 
   delete(obj: { id: number }) {
-    console.log(this.url + obj.id);
     return this.httpClient.delete(this.url + obj.id);
   }
 }

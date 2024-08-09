@@ -10,6 +10,6 @@ type QueryOptions = { name?: string } & PageOptions;
 })
 export class ReportTypeService extends BaseService<ReportType, QueryOptions> {
   constructor(http: HttpClient) {
-    super(http, 'http://localhost:3000/report-type');
+    super(http, 'http://localhost:3000/report-type/');
   }
 }

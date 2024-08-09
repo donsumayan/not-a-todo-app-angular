@@ -10,6 +10,6 @@ type QueryOptions = { name?: string } & PageOptions;
 })
 export class FundService extends BaseService<Fund, QueryOptions> {
   constructor(http: HttpClient) {
-    super(http, 'http://localhost:3000/fund');
+    super(http, 'http://localhost:3000/fund/');
   }
 }
